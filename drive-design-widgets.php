@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Drive Design Elementor Widgets Pack
  * Plugin URI: https://github.com/webdevs-pro/drive-design-widgets
- * Version: 1.0.1
+ * Version: 1.0.2
  * Description: Drive Design Elementor Custom Widget Pack
  * Author: Alex Ishchenko
  * Author URI: https://website.cv.ua

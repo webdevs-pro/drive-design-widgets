@@ -278,23 +278,6 @@ class DD_Dynamic_Tabs_Widget extends Elementor\Widget_Base {
 		$this->end_controls_section();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       $this->start_controls_section( 'section_buttons_style', [
 			'label' => 'Buttons',
          'tab'   => Controls_Manager::TAB_STYLE,
@@ -433,7 +416,8 @@ class DD_Dynamic_Tabs_Widget extends Elementor\Widget_Base {
                      ],
                   ],
                   'default' => [
-                     'px' => 0.2,
+                     'unit' => 'px',
+                     'size' => 0.2,
                   ],
                ] );
 

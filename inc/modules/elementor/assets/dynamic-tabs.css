@@ -40,3 +40,13 @@
 .dd-tab-content.active {
    display: block; /* Show active tab content */
 }
+
+
+@media(max-width: 767px) {
+   .dd-tab-buttons {
+      flex-direction: column;
+   }
+   .dd-tab-button {
+      width: 100%;
+   }
+}
