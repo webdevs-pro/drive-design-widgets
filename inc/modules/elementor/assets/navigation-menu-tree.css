@@ -1,0 +1,52 @@
+.dd-navigation-tree,
+.dd-navigation-tree ul.menu {
+   margin: 0;
+}
+
+
+.dd-navigation-tree ul.children,
+.dd-navigation-tree ul.sub-menu {
+   display: none;
+}
+.dd_unfold_all .dd-navigation-tree ul.children,
+.dd_unfold_all .dd-navigation-tree ul.sub-menu {
+   display: block;
+}
+.dd_unfold_current .dd-navigation-tree .sub-toggler.opened ~ ul.children,
+.dd_unfold_current .dd-navigation-tree .sub-toggler.opened ~ ul.sub-menu {
+   display: block;
+}
+
+.dd-navigation-tree li  {
+   list-style-type: none;
+   position: relative;
+}
+
+.dd-navigation-tree .sub-toggler {
+   display: inline-block;
+   cursor: pointer;
+   margin-bottom: -1.8em;
+   transition: all 300ms;
+   width: 0;
+   vertical-align: top;
+}
+
+.dd-navigation-tree .sub-toggler.opened i.eicon-plus-square-o:before {
+   content: '\e945';
+}
+.dd-navigation-tree .sub-toggler.opened i.eicon-caret-right {
+   transform: rotate(90deg);
+}
+.dd-navigation-tree .sub-toggler.opened i.eicon-chevron-right {
+   transform: rotate(90deg);
+}
+
+.dd-navigation-tree li a {
+   margin-left: 1.3em;
+   display: inline-block;
+}
+
+.dd-navigation-tree li ul {
+   margin-left: 0.45em;
+   padding-left: 0.5em;
+}
