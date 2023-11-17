@@ -1,7 +1,7 @@
 jQuery(window).on('elementor/frontend/init', function () {
 
    var DD_Nav_Tree = function ($scope, $) {
-      var toggler = $scope.find('.mae_navigation_tree li .sub-toggler');
+      var toggler = $scope.find('.dd-navigation-tree li .sub-toggler');
       $(toggler).on('click', function(e){
          var $this = $(this);
          $this.parent().find('ul').first().slideToggle(200);
@@ -9,7 +9,7 @@ jQuery(window).on('elementor/frontend/init', function () {
       })
 
       // auto open current item on menu
-      if ($scope.hasClass('mae_unfold_current')) {
+      if ($scope.hasClass('dd-unfold-current')) {
          var to_toggle_li = $scope.find('li.current-menu-ancestor');
          $(to_toggle_li).each(function(){
             $(this).find('.sub-toggler').first().click();

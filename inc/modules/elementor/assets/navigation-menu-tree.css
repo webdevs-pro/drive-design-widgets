@@ -8,12 +8,12 @@
 .dd-navigation-tree ul.sub-menu {
    display: none;
 }
-.dd_unfold_all .dd-navigation-tree ul.children,
-.dd_unfold_all .dd-navigation-tree ul.sub-menu {
+.dd-unfold-all .dd-navigation-tree ul.children,
+.dd-unfold-all .dd-navigation-tree ul.sub-menu {
    display: block;
 }
-.dd_unfold_current .dd-navigation-tree .sub-toggler.opened ~ ul.children,
-.dd_unfold_current .dd-navigation-tree .sub-toggler.opened ~ ul.sub-menu {
+.dd-unfold-current .dd-navigation-tree .sub-toggler.opened ~ ul.children,
+.dd-unfold-current .dd-navigation-tree .sub-toggler.opened ~ ul.sub-menu {
    display: block;
 }
 

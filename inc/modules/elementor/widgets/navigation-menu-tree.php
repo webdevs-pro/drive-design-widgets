@@ -76,7 +76,7 @@ class DD_Navigation_Menu_Tree_Widget extends Widget_Base {
 					'current' => 'To current item',
 					'all' => 'All',
 				],
-				'prefix_class' => 'dd_unfold_',
+				'prefix_class' => 'dd-unfold-',
 			] );
 		$this->end_controls_section(); // end main
 
@@ -367,16 +367,6 @@ class DD_Navigation_Menu_Tree_Widget extends Widget_Base {
 			$parent = $ul->parentNode;
 			$firstChild = $parent->firstChild;
 
-			// set class to '<li>' if has child
-			// $classes = $parent->getAttribute('class');
-			// $parent->setAttribute('class', $classes . ' dd_has_children');
-			
-			// insert toggle
-			// $toggleSpan = $DOM->createElement('span');
-			// $toggleSpan->setAttribute('class','sub-toggler');
-			// $icon = $DOM->createElement('i');
-			// $icon->setAttribute('class','eicon-plus-square-o');
-			// $toggleSpan->appendChild($icon);
 
 			$toggleSpan = $DOM->createDocumentFragment();
 
@@ -396,7 +386,7 @@ class DD_Navigation_Menu_Tree_Widget extends Widget_Base {
 
 
 		// output
-		echo '<div class="dd-navigation-tree dd_navigation_wrapper">' . $html . '</div>';		
+		echo '<div class="dd-navigation-tree dd-navigation-wrapper">' . $html . '</div>';		
 
 	}
 
