@@ -302,33 +302,24 @@ class DD_Dynamic_Tabs_Widget extends Elementor\Widget_Base {
                   'type'      => Controls_Manager::COLOR,
                   'default'   => '#FFF',
                   'selectors' => [
-                     '{{WRAPPER}} .dd-tab-button:not(:hover)' => 'color: {{VALUE}};',
+                     '{{WRAPPER}} .dd-tab-button' => 'color: {{VALUE}};',
          
                   ],
                ] );
 
-               $this->add_group_control( Group_Control_Background::get_type(), [
-                  'name' => 'tabs_title_background_color',
-                  'types' => [ 'classic', 'gradient' ],
-                  'exclude' => [ 'image' ],
-                  'selector' => '{{WRAPPER}} .dd-tab-button:not(:hover)',
-                  'fields_options' => [
-                     'background' => [
-                        'default' => 'classic',
-                     ],
-                     'color' => [
-                        'label' => 'Background Color',
-                        'default' => '#eef1f5',
-                        'selectors' => [
-                           '{{SELECTOR}}' => 'background: {{VALUE}}',
-                        ],
-                     ],
+               $this->add_control( 'tabs_title_background_color', [
+                  'label'     => 'Background Color',
+                  'type'      => Controls_Manager::COLOR,
+                  'default'   => '#eef1f5',
+                  'selectors' => [
+                     '{{WRAPPER}} .dd-tab-button' => 'background-color: {{VALUE}};',
+         
                   ],
                ] );
 
                $this->add_group_control( Group_Control_Border::get_type(), [
                   'name' => 'tabs_title_border',
-                  'selector' => ".dd-tab-button:not(:hover)",
+                  'selector' => ".dd-tab-button",
                   'fields_options' => [
                      'color' => [
                         'label' => 'Border Color',
@@ -343,7 +334,7 @@ class DD_Dynamic_Tabs_Widget extends Elementor\Widget_Base {
                   'name' => 'tabs_title_box_shadow',
                   'label' => 'Shadow',
                   'separator' => 'after',
-                  'selector' => ".dd-tab-button:not( :hover )",
+                  'selector' => ".dd-tab-button",
                ] );
 
             $this->end_controls_tab();
@@ -364,22 +355,13 @@ class DD_Dynamic_Tabs_Widget extends Elementor\Widget_Base {
                   ],
                ] );
 
-               $this->add_group_control( Group_Control_Background::get_type(), [
-                  'name' => 'tabs_title_background_color_hover',
-                  'types' => [ 'classic', 'gradient' ],
-                  'exclude' => [ 'image' ],
-                  'selector' => ".dd-tab-button:hover",
-                  'fields_options' => [
-                     'background' => [
-                        'default' => 'classic',
-                     ],
-                     'color' => [
-                        'default' => '#15356d',
-                        'label' => 'Background Color',
-                        'selectors' => [
-                           '{{SELECTOR}}' => 'background: {{VALUE}};',
-                        ],
-                     ],
+               $this->add_control( 'tabs_title_background_hover', [
+                  'label'     => 'Background Color',
+                  'type'      => Controls_Manager::COLOR,
+                  'default'   => '#eef1f5',
+                  'selectors' => [
+                     '{{WRAPPER}} .dd-tab-button:hover' => 'background-color: {{VALUE}};',
+         
                   ],
                ] );
 
@@ -427,7 +409,7 @@ class DD_Dynamic_Tabs_Widget extends Elementor\Widget_Base {
                'label' => 'Active',
             ] );
 
-               $this->add_control( 'tabs_title_colo_active', [
+               $this->add_control( 'tabs_title_color_active', [
                   'label'     => 'Color',
                   'type'      => Controls_Manager::COLOR,
                   'default'   => '#FFF',
@@ -437,22 +419,13 @@ class DD_Dynamic_Tabs_Widget extends Elementor\Widget_Base {
                   ],
                ] );
 
-               $this->add_group_control( Group_Control_Background::get_type(), [
-                  'name' => 'tabs_title_background_color_active',
-                  'types' => [ 'classic', 'gradient' ],
-                  'exclude' => [ 'image' ],
-                  'selector' => ".dd-tab-button.active",
-                  'fields_options' => [
-                     'background' => [
-                        'default' => 'classic',
-                     ],
-                     'color' => [
-                        'default' => '#15356d',
-                        'label' => 'Background Color',
-                        'selectors' => [
-                           '{{SELECTOR}}' => 'background: {{VALUE}};',
-                        ],
-                     ],
+               $this->add_control( 'tabs_title_background_color_active', [
+                  'label'     => 'Background Color',
+                  'type'      => Controls_Manager::COLOR,
+                  'default'   => '#eef1f5',
+                  'selectors' => [
+                     '{{WRAPPER}} .dd-tab-button.active' => 'background-color: {{VALUE}};',
+         
                   ],
                ] );
 
