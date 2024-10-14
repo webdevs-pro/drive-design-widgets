@@ -13,7 +13,7 @@ class DD_Elementor {
    public function __construct() {
       add_action( 'plugins_loaded', array( $this, 'init' ) );
       add_action( 'elementor/elements/categories_registered', array( $this, 'register_widgets_categories' ) );
-		add_action( 'elementor/frontend/after_register_scripts', array( $this, 'register_frontend_scripts' ) );
+		add_action( 'elementor/frontend/after_register_scripts', array( $this, 'register_frontend_scripts' ), 9999 );
 		add_action( 'elementor/frontend/after_register_styles', array( $this, 'register_frontend_styles' ) );
       add_action( 'elementor/widgets/register', array( $this, 'on_widgets_registered' ) );
    }
@@ -144,8 +144,8 @@ class DD_Elementor {
     * @return void
     */
    public function register_frontend_scripts() {
-		wp_register_script( 'dd-dynamic-tabs', DD_PLUGIN_DIR_URL . 'inc/modules/elementor/assets/dynamic-tabs.js', array( 'jquery', 'elementor-frontend' ), DD_PLUGIN_VERSION, true );
-		wp_register_script( 'dd-navigation-menu-tree', DD_PLUGIN_DIR_URL . 'inc/modules/elementor/assets/navigation-menu-tree.js', array( 'jquery', 'elementor-frontend' ), DD_PLUGIN_VERSION, true );
+		wp_register_script( 'dd-dynamic-tabs', DD_PLUGIN_DIR_URL . 'inc/modules/elementor/assets/dynamic-tabs.js', array( 'jquery' ), DD_PLUGIN_VERSION, true );
+		wp_register_script( 'dd-navigation-menu-tree', DD_PLUGIN_DIR_URL . 'inc/modules/elementor/assets/navigation-menu-tree.js', array( 'jquery' ), DD_PLUGIN_VERSION, true );
 
    }
 
