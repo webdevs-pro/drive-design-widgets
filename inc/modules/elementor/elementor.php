@@ -224,6 +224,10 @@ class DD_Elementor {
     */
    public function before_container_render( $element ) {
       $settings = $element->get_settings_for_display();
+      if ( 'yes' !== $settings['dd_paralax_enable'] ) {
+         return;
+      }
+
       // Output the div with a unique ID for this container
       $container_id = $element->get_id();
       echo '<div class="dd-paralax-background" data-container-id="' . esc_attr( $container_id ) . '" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>';
@@ -267,22 +271,33 @@ class DD_Elementor {
 
 
    public function render_container_template( $template, $element ) {
-      $container_id = $element->get_id();
       ob_start();
       ?>
-      <div class="dd-paralax-background" data-container-id="{{ view.container.id }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+      <# 
+      
+      // console.log('settings', settings);
 
-      <# if ( 'boxed' === settings.content_width ) {
+      if ( 'yes' === settings.dd_paralax_enable ) {
 
-         console.log('view', view);
+         #>
+         <div class="dd-paralax-background" data-container-id="{{ view.container.id }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+         <#  
 
-         var containerId = view.container.id;
+         var paralaxImages = settings.dd_paralax_images;
+         console.log('paralaxImages', paralaxImages);
 
-         setTimeout(function() {
-            var paralaxDiv = view.$el.find('.dd-paralax-background[data-container-id="' + containerId + '"]');
-            view.$childViewContainer.prepend(paralaxDiv);
-         })
-      } #>
+
+         if ( 'boxed' === settings.content_width ) {
+
+            // console.log('view', view);
+
+            setTimeout(function() {
+               var paralaxDiv = view.$el.find('.dd-paralax-background[data-container-id="' + view.container.id + '"]');
+               view.$childViewContainer.prepend(paralaxDiv);
+            })
+         } 
+      }
+      #>
       <?php
       $template_injection = ob_get_clean();
 
