@@ -16,6 +16,9 @@ class DD_Elementor {
 		add_action( 'elementor/frontend/after_register_scripts', array( $this, 'register_frontend_scripts' ), 9999 );
 		add_action( 'elementor/frontend/after_register_styles', array( $this, 'register_frontend_styles' ) );
       add_action( 'elementor/widgets/register', array( $this, 'on_widgets_registered' ) );
+      
+      // Add DD Paralax Background controls to container
+      add_action( 'elementor/element/container/section_background_overlay/after_section_end', array( $this, 'add_dd_paralax_background_controls' ), 10, 2 );
    }
 
    public function init() {
@@ -159,6 +162,75 @@ class DD_Elementor {
    public function register_frontend_styles() {
       wp_register_style( 'dd-dynamic-tabs', DD_PLUGIN_DIR_URL . 'inc/modules/elementor/assets/dynamic-tabs.css', array(), DD_PLUGIN_VERSION ); 
       wp_register_style( 'dd-navigation-menu-tree', DD_PLUGIN_DIR_URL . 'inc/modules/elementor/assets/navigation-menu-tree.css', array(), DD_PLUGIN_VERSION ); 
+   }
+
+   /**
+    * Add DD Paralax Background controls to container
+    *
+    * @param \Elementor\Controls_Stack $element
+    * @param array $args
+    * @return void
+    */
+   public function add_dd_paralax_background_controls( $element, $args ) {
+      $element->start_controls_section(
+         'section_dd_paralax_background',
+         [
+            'label' => esc_html__( 'DD Paralax Background', 'elementor' ),
+            'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+         ]
+      );
+
+      $element->add_control(
+         'dd_paralax_enable',
+         [
+            'label' => esc_html__( 'Enable Paralax Effect', 'elementor' ),
+            'type' => \Elementor\Controls_Manager::SWITCHER,
+            'label_on' => esc_html__( 'Yes', 'elementor' ),
+            'label_off' => esc_html__( 'No', 'elementor' ),
+            'return_value' => 'yes',
+            'default' => '',
+         ]
+      );
+
+      $element->add_control(
+         'dd_paralax_speed',
+         [
+            'label' => esc_html__( 'Paralax Speed', 'elementor' ),
+            'type' => \Elementor\Controls_Manager::SLIDER,
+            'range' => [
+               'px' => [
+                  'min' => 0.1,
+                  'max' => 2,
+                  'step' => 0.1,
+               ],
+            ],
+            'default' => [
+               'size' => 0.5,
+            ],
+            'condition' => [
+               'dd_paralax_enable' => 'yes',
+            ],
+         ]
+      );
+
+      $element->add_control(
+         'dd_paralax_direction',
+         [
+            'label' => esc_html__( 'Paralax Direction', 'elementor' ),
+            'type' => \Elementor\Controls_Manager::SELECT,
+            'default' => 'vertical',
+            'options' => [
+               'vertical' => esc_html__( 'Vertical', 'elementor' ),
+               'horizontal' => esc_html__( 'Horizontal', 'elementor' ),
+               'both' => esc_html__( 'Both', 'elementor' ),
+            ],
+            'condition' => [
+               'dd_paralax_enable' => 'yes',
+            ],
+         ]
+      );
+
+      $element->end_controls_section();
    }
 }
 new DD_Elementor();
