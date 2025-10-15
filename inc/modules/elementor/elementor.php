@@ -19,6 +19,9 @@ class DD_Elementor {
       
       // Add DD Paralax Background controls to container
       add_action( 'elementor/element/container/section_background_overlay/after_section_end', array( $this, 'add_dd_paralax_background_controls' ), 10, 2 );
+
+      add_action( 'elementor/frontend/container/before_render', array( $this, 'before_container_render' ), 10, 1 );
+      add_action( 'elementor/frontend/container/after_render', array( $this, 'after_container_render' ), 10, 1 );
    }
 
    public function init() {
@@ -160,6 +163,7 @@ class DD_Elementor {
     * @return void
     */
    public function register_frontend_styles() {
+      wp_enqueue_style( 'dd-paralax-background', DD_PLUGIN_DIR_URL . 'inc/modules/elementor/assets/paralax-background.css', array(), DD_PLUGIN_VERSION ); 
       wp_register_style( 'dd-dynamic-tabs', DD_PLUGIN_DIR_URL . 'inc/modules/elementor/assets/dynamic-tabs.css', array(), DD_PLUGIN_VERSION ); 
       wp_register_style( 'dd-navigation-menu-tree', DD_PLUGIN_DIR_URL . 'inc/modules/elementor/assets/navigation-menu-tree.css', array(), DD_PLUGIN_VERSION ); 
    }
@@ -210,5 +214,55 @@ class DD_Elementor {
 
       $element->end_controls_section();
    }
+
+   /**
+    * Before container render
+    *
+    * @param \Elementor\Element_Base $element
+    * @return void
+    */
+   public function before_container_render( $element ) {
+      // Output the div with a unique ID for this container
+      $container_id = $element->get_id();
+      echo '<div class="dd-paralax-background" data-container-id="' . esc_attr( $container_id ) . '" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>';
+      
+      // Add JavaScript to move the div inside e-con-inner after the container is rendered
+      ?>
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+         const containerId = '<?php echo esc_js( $container_id ); ?>';
+         const paralaxDiv = document.querySelector('.dd-paralax-background[data-container-id="' + containerId + '"]');
+         const container = document.querySelector('.elementor-element-' + containerId);
+         
+         if (paralaxDiv && container) {
+            const conInner = container.querySelector('.e-con-inner');
+            if (conInner) {
+               // Move the paralax div as the first child of e-con-inner
+               conInner.insertBefore(paralaxDiv, conInner.firstChild);
+            }
+         }
+      });
+      </script>
+      <?php
+   }
+
+   /**
+    * Before container render
+    *
+    * @param \Elementor\Element_Base $element
+    * @return void
+    */
+   public function after_container_render( $element ) {
+
+   }
 }
 new DD_Elementor();
+
+
+
+
+
+
+
+
+
