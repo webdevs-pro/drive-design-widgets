@@ -193,42 +193,20 @@ class DD_Elementor {
       );
 
       $element->add_control(
-         'dd_paralax_speed',
+         'dd_paralax_images',
          [
-            'label' => esc_html__( 'Paralax Speed', 'elementor' ),
-            'type' => \Elementor\Controls_Manager::SLIDER,
-            'range' => [
-               'px' => [
-                  'min' => 0.1,
-                  'max' => 2,
-                  'step' => 0.1,
-               ],
-            ],
-            'default' => [
-               'size' => 0.5,
-            ],
+            'label' => esc_html__( 'Images', 'elementor' ),
+            'type' => \Elementor\Controls_Manager::GALLERY,
             'condition' => [
                'dd_paralax_enable' => 'yes',
             ],
+            'frontend_available' => true,
+            // 'of_type' => 'slideshow',
+            'show_label' => false,
          ]
       );
 
-      $element->add_control(
-         'dd_paralax_direction',
-         [
-            'label' => esc_html__( 'Paralax Direction', 'elementor' ),
-            'type' => \Elementor\Controls_Manager::SELECT,
-            'default' => 'vertical',
-            'options' => [
-               'vertical' => esc_html__( 'Vertical', 'elementor' ),
-               'horizontal' => esc_html__( 'Horizontal', 'elementor' ),
-               'both' => esc_html__( 'Both', 'elementor' ),
-            ],
-            'condition' => [
-               'dd_paralax_enable' => 'yes',
-            ],
-         ]
-      );
+
 
       $element->end_controls_section();
    }
