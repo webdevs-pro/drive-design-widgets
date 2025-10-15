@@ -13,9 +13,20 @@ use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 final class DD_Plugin {
 
 	public function __construct() {
+      add_action( 'init', array( $this, 'load_textdomain' ) );
+
 		$this->define_constants();
 		$this->include_files();
 		$this->init_plugin_update_checker();
+	}
+
+	/**
+	 * Load plugin textdomain
+	 *
+	 * @return void
+	 */
+	public function load_textdomain() {
+		load_plugin_textdomain( 'drive-design-widgets', false, dirname( DD_PLUGIN_BASENAME ) . '/languages/' );
 	}
 
 	function define_constants() {
@@ -25,7 +36,7 @@ final class DD_Plugin {
 		if ( ! function_exists( 'get_home_path' ) ) {
 			require_once ( ABSPATH . 'wp-admin/includes/file.php' );
 		}
-		define( 'DD_PLUGIN_VERSION', get_plugin_data( __FILE__ )['Version'] );
+		define( 'DD_PLUGIN_VERSION', get_plugin_data( __FILE__, false, false )['Version'] );
 		// define( 'DD_HOME_PATH', get_home_path() );
 		define( 'DD_HOME_PATH', ABSPATH );
 		define( 'DD_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );

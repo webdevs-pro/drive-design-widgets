@@ -270,7 +270,7 @@ class DD_Navigation_Menu_Tree_Widget extends Widget_Base {
 			// ] );
 
 			$this->add_control( 'dd_menu_tree_icon', [
-				'label' => esc_html__( 'Icon', 'textdomain' ),
+				'label' => 'Icon',
 				'type' => \Elementor\Controls_Manager::ICONS,
 				'default' => [
 					'value' => 'fas fa-caret-right',
