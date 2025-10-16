@@ -7,14 +7,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * DD Parallax Background functionality for Elementor containers
  */
-class DD_Parallax_Background {
+class DD_Container_Background_Effects {
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		// Add DD Paralax Background controls to container
-		add_action( 'elementor/element/container/section_background_overlay/after_section_end', array( $this, 'add_dd_paralax_background_controls' ), 10, 2 );
+		add_action( 'elementor/element/container/section_background_overlay/after_section_end', array( $this, 'add_controls' ), 10, 2 );
 
 		add_action( 'elementor/frontend/container/before_render', array( $this, 'before_container_render' ), 10, 1 );
 
@@ -28,11 +28,11 @@ class DD_Parallax_Background {
 	 * @param array $args
 	 * @return void
 	 */
-	public function add_dd_paralax_background_controls( $element, $args ) {
+	public function add_controls( $element, $args ) {
 		$element->start_controls_section(
-			'section_dd_background_effects',
+			'section_DD_Container_Background_Effects',
 			[
-				'label' => esc_html__( 'DD Background Effects', 'elementor' ),
+				'label' => esc_html__( 'DD Background Effects', 'drive-design-widgets' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -40,15 +40,28 @@ class DD_Parallax_Background {
 		$element->add_control(
 			'dd_background_effect',
 			[
-				'label' => esc_html__( 'Enable Paralax Effect', 'elementor' ),
+				'label' => esc_html__( 'Effect', 'drive-design-widgets' ),
 				'type' => \Elementor\Controls_Manager::SELECT,
 				'options' => [
-					'parallax_gallery' => esc_html__( 'Parallax Gallery', 'elementor' ),
+					'' => esc_html__( 'None', 'drive-design-widgets' ),
+					'parallax_gallery' => esc_html__( 'Parallax Gallery', 'drive-design-widgets' ),
 				],
-				'default' => 'parallax_gallery',
+				'default' => '',
 			]
 		);
 
+		$this->get_parallax_gallery_controls( $element );
+
+		$element->end_controls_section();
+	}
+
+	/**
+	 * Get parallax gallery controls
+	 *
+	 * @param \Elementor\Controls_Stack $element
+	 * @return void
+	 */
+	private function get_parallax_gallery_controls( $element ) {
 		$element->start_controls_tabs( 'dd_paralax_tabs', [
 			'condition' => [
 				'dd_background_effect' => 'parallax_gallery',
@@ -59,14 +72,14 @@ class DD_Parallax_Background {
 		$element->start_controls_tab(
 			'dd_paralax_gallery_tab',
 			[
-				'label' => esc_html__( 'Content', 'elementor' ),
+				'label' => esc_html__( 'Content', 'drive-design-widgets' ),
 			]
 		);
 
 		$element->add_control(
 			'dd_paralax_gallery_images',
 			[
-				'label' => esc_html__( 'Images', 'elementor' ),
+				'label' => esc_html__( 'Images', 'drive-design-widgets' ),
 				'type' => \Elementor\Controls_Manager::GALLERY,
 				// 'frontend_available' => true,
 				// 'of_type' => 'slideshow',
@@ -77,7 +90,7 @@ class DD_Parallax_Background {
 		$element->add_control(
 			'dd_paralax_gallery_rows',
 			[
-				'label' => esc_html__( 'Rows Count', 'elementor' ),
+				'label' => esc_html__( 'Rows Count', 'drive-design-widgets' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
 				'min' => 1,
 				'max' => 10,
@@ -88,7 +101,7 @@ class DD_Parallax_Background {
 		$element->add_control(
 			'dd_paralax_gallery_columns',
 			[
-				'label' => esc_html__( 'Columns Count', 'elementor' ),
+				'label' => esc_html__( 'Columns Count', 'drive-design-widgets' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
 				'min' => 1,
 				'max' => 30,
@@ -102,14 +115,14 @@ class DD_Parallax_Background {
 		$element->start_controls_tab(
 			'dd_paralax_gallery_style_tab',
 			[
-				'label' => esc_html__( 'Style', 'elementor' ),
+				'label' => esc_html__( 'Style', 'drive-design-widgets' ),
 			]
 		);
 
 		$element->add_control(
 			'dd_paralax_gallery_row_gap',
 			[
-				'label' => esc_html__( 'Row Gap', 'elementor' ),
+				'label' => esc_html__( 'Row Gap', 'drive-design-widgets' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'custom' ],
 				'range' => [
@@ -137,7 +150,7 @@ class DD_Parallax_Background {
 		$element->add_control(
 			'dd_paralax_gallery_column_gap',
 			[
-				'label' => esc_html__( 'Column Gap', 'elementor' ),
+				'label' => esc_html__( 'Column Gap', 'drive-design-widgets' ),
 				'type' => \Elementor\Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'custom' ],
 				'range' => [
@@ -160,8 +173,6 @@ class DD_Parallax_Background {
 		$element->end_controls_tab();
 
 		$element->end_controls_tabs();
-
-		$element->end_controls_section();
 	}
 
 	/**

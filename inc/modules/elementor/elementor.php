@@ -18,7 +18,7 @@ class DD_Elementor {
       add_action( 'elementor/widgets/register', array( $this, 'on_widgets_registered' ) );
       
       // Initialize DD Parallax Background functionality
-      new DD_Parallax_Background();
+      new DD_Container_Background_Effects();
    }
 
    public function init() {
