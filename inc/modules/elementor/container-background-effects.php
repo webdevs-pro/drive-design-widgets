@@ -41,7 +41,7 @@ class DD_Container_Background_Effects {
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'options' => [
 						'' => esc_html__( 'None', 'drive-design-widgets' ),
-						'parallax_gallery' => esc_html__( 'Parallax Gallery', 'drive-design-widgets' ),
+						'parallax-gallery' => esc_html__( 'Parallax Gallery', 'drive-design-widgets' ),
 					],
 					'default' => '',
 				]
@@ -61,7 +61,7 @@ class DD_Container_Background_Effects {
 	private function get_parallax_gallery_controls( $element ) {
 		$element->start_controls_tabs( 'dd_paralax_tabs', [
 			'condition' => [
-				'dd_background_effect' => 'parallax_gallery',
+				'dd_background_effect' => 'parallax-gallery',
 			],
 		] );
 
@@ -79,7 +79,6 @@ class DD_Container_Background_Effects {
 						'label' => esc_html__( 'Images', 'drive-design-widgets' ),
 						'type' => \Elementor\Controls_Manager::GALLERY,
 						// 'frontend_available' => true,
-						// 'of_type' => 'slideshow',
 						'show_label' => false,
 					]
 				);
@@ -93,7 +92,7 @@ class DD_Container_Background_Effects {
 						'max' => 10,
 						'default' => 3,
 						'selectors' => [
-							'{{WRAPPER}} .dd-paralax-background' => '--dd-paralax-galleryrows: {{SIZE}};',
+							'{{WRAPPER}} .dd-background-effects' => '--dd-paralax-galleryrows: {{SIZE}};',
 						],
 					]
 				);
@@ -107,7 +106,7 @@ class DD_Container_Background_Effects {
 						'max' => 30,
 						'default' => 10,
 						'selectors' => [
-							'{{WRAPPER}} .dd-paralax-background' => '--dd-paralax-gallery-columns: {{SIZE}};',
+							'{{WRAPPER}} .dd-background-effects' => '--dd-paralax-gallery-columns: {{SIZE}};',
 						],
 					]
 				);
@@ -145,7 +144,7 @@ class DD_Container_Background_Effects {
 							'size' => 10,
 						],
 						'selectors' => [
-							'{{WRAPPER}} .dd-paralax-background' => '--dd-paralax-gallery-row-gap: {{SIZE}}{{UNIT}};',
+							'{{WRAPPER}} .dd-background-effects' => '--dd-paralax-gallery-row-gap: {{SIZE}}{{UNIT}};',
 						],
 					]
 				);
@@ -168,7 +167,7 @@ class DD_Container_Background_Effects {
 							'size' => 10,
 						],
 						'selectors' => [
-							'{{WRAPPER}} .dd-paralax-background' => '--dd-paralax-gallery-column-gap: {{SIZE}}{{UNIT}};',
+							'{{WRAPPER}} .dd-background-effects' => '--dd-paralax-gallery-column-gap: {{SIZE}}{{UNIT}};',
 						],
 					]
 				);
@@ -186,13 +185,17 @@ class DD_Container_Background_Effects {
 	 */
 	public function before_container_render( $element ) {
 		$settings = $element->get_settings_for_display();
-		if ( 'parallax_gallery' !== $settings['dd_background_effect'] ) {
+		if ( empty( $settings['dd_background_effect'] ) ) {
 			return;
 		}
 
 		// Output the div with a unique ID for this container
 		$container_id = $element->get_id();
-		echo '<div class="dd-paralax-background" data-container-id="' . esc_attr( $container_id ) . '" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>';
+		printf(
+			'<div class="dd-background-effects dd-background-effect-%s" data-container-id="%s" style="position: absolute; top: 0; left: 0; width: 100%%; height: 100%%;"></div>',
+			esc_attr( $settings['dd_background_effect'] ),
+			esc_attr( $container_id )
+		);
 
 		if ( 'boxed' === $settings['content_width'] ) {
 			// Add JavaScript to move the div inside e-con-inner after the container is rendered
@@ -200,7 +203,7 @@ class DD_Container_Background_Effects {
 			<script>
 				document.addEventListener('DOMContentLoaded', function() {
 					const containerId = '<?php echo esc_js( $container_id ); ?>';
-					const paralaxDiv = document.querySelector('.dd-paralax-background[data-container-id="' + containerId + '"]');
+					const paralaxDiv = document.querySelector('.dd-background-effects[data-container-id="' + containerId + '"]');
 					const container = document.querySelector('.elementor-element-' + containerId);
 					
 					if (paralaxDiv && container) {
@@ -219,7 +222,7 @@ class DD_Container_Background_Effects {
 			<script>
 				document.addEventListener('DOMContentLoaded', function() {
 					const containerId = '<?php echo esc_js( $container_id ); ?>';
-					const paralaxDiv = document.querySelector('.dd-paralax-background[data-container-id="' + containerId + '"]');
+					const paralaxDiv = document.querySelector('.dd-background-effects[data-container-id="' + containerId + '"]');
 					const container = document.querySelector('.elementor-element-' + containerId);
 					
 					if (paralaxDiv && container) {
@@ -245,10 +248,10 @@ class DD_Container_Background_Effects {
 		
 		// console.log('settings', settings);
 
-		if ( 'parallax_gallery' === settings.dd_background_effect ) {
+		if ( settings.dd_background_effect ) {
 
 			#>
-			<div class="dd-paralax-background" data-container-id="{{ view.container.id }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+			<div class="dd-background-effects dd-background-effect-{{ settings.dd_background_effect }}" data-container-id="{{ view.container.id }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
 			<#  
 
 			var paralaxImages = settings.dd_paralax_gallery_images;
@@ -260,7 +263,7 @@ class DD_Container_Background_Effects {
 				// console.log('view', view);
 
 				setTimeout(function() {
-					var paralaxDiv = view.$el.find('.dd-paralax-background[data-container-id="' + view.container.id + '"]');
+					var paralaxDiv = view.$el.find('.dd-background-effects[data-container-id="' + view.container.id + '"]');
 					view.$childViewContainer.prepend(paralaxDiv);
 				})
 			} 
