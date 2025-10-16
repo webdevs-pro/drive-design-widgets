@@ -94,6 +94,7 @@ class DD_Container_Background_Effects {
 						'selectors' => [
 							'{{WRAPPER}} .dd-background-effects' => '--dd-paralax-galleryrows: {{SIZE}};',
 						],
+						'render_type' => 'template',
 					]
 				);
 
@@ -108,6 +109,7 @@ class DD_Container_Background_Effects {
 						'selectors' => [
 							'{{WRAPPER}} .dd-background-effects' => '--dd-paralax-gallery-columns: {{SIZE}};',
 						],
+						'render_type' => 'template',
 					]
 				);
 
@@ -192,10 +194,39 @@ class DD_Container_Background_Effects {
 		// Output the div with a unique ID for this container
 		$container_id = $element->get_id();
 		printf(
-			'<div class="dd-background-effects dd-background-effect-%s" data-container-id="%s" style="position: absolute; top: 0; left: 0; width: 100%%; height: 100%%;"></div>',
+			'<div class="dd-background-effects dd-background-effect-%s" data-container-id="%s" style="position: absolute; top: 0; left: 0; width: 100%%; height: 100%%; overflow: hidden;">',
 			esc_attr( $settings['dd_background_effect'] ),
 			esc_attr( $container_id )
 		);
+
+			if ( 'parallax-gallery' === $settings['dd_background_effect'] ) {
+
+				echo '<div class="dd-parallax-gallery-wrapper">';
+
+					for ( $row = 1; $row <= $settings['dd_paralax_gallery_rows']; $row++ ) {
+
+						echo '<div class="dd-parallax-gallery-row">';
+
+							for ( $column = 1; $column <= $settings['dd_paralax_gallery_columns']; $column++ ) {
+								// Randomly select an image from the gallery
+								$random_index = array_rand( $settings['dd_paralax_gallery_images'] );
+								$random_image = $settings['dd_paralax_gallery_images'][ $random_index ];
+								
+								printf(
+									'<img class="dd-parallax-gallery-item" src="%s" alt="%s">',
+									esc_url( $random_image['url'] ),
+									esc_attr( $random_image['alt'] )
+								);
+							}
+
+						echo '</div>'; // .dd-parallax-gallery-row
+					}
+
+				echo '</div>'; // .dd-parallax-gallery-wrapper
+
+			}
+
+		echo '</div>'; // .dd-background-effects
 
 		if ( 'boxed' === $settings['content_width'] ) {
 			// Add JavaScript to move the div inside e-con-inner after the container is rendered
@@ -244,28 +275,36 @@ class DD_Container_Background_Effects {
 	public function render_container_template( $template, $element ) {
 		ob_start();
 		?>
-		<# 
-		
-		// console.log('settings', settings);
+		<# if ( settings.dd_background_effect ) { #>
+			<div class="dd-background-effects dd-background-effect-{{ settings.dd_background_effect }}" data-container-id="{{ view.container.id }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;">
+				<#
+				var paralaxGalleryImages = settings.dd_paralax_gallery_images;
+				// console.log('paralaxGalleryImages', paralaxGalleryImages);
 
-		if ( settings.dd_background_effect ) {
-
-			#>
-			<div class="dd-background-effects dd-background-effect-{{ settings.dd_background_effect }}" data-container-id="{{ view.container.id }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+				if ( 'parallax-gallery' === settings.dd_background_effect ) { #>
+					<div class="dd-parallax-gallery-wrapper">
+						<# for ( row = 1; row <= settings.dd_paralax_gallery_rows; row++ ) { #>
+							<div class="dd-parallax-gallery-row">
+								<# for ( column = 1; column <= settings.dd_paralax_gallery_columns; column++ ) { #>
+									<#
+									// Randomly select an image from the gallery	
+									var randomIndex = Math.floor(Math.random() * paralaxGalleryImages.length);
+									var randomImage = paralaxGalleryImages[randomIndex];
+									#>
+									<img class="dd-parallax-gallery-item" src="{{ randomImage.url }}" alt="{{ randomImage.alt }}">
+								<# } #>
+							</div>
+						<# } #>
+					</div>
+				<# } #>
+			</div>
 			<#  
-
-			var paralaxImages = settings.dd_paralax_gallery_images;
-			console.log('paralaxImages', paralaxImages);
-
-
+			// Maybe move .dd-background-effects to .e-con-inner
 			if ( 'boxed' === settings.content_width ) {
-
-				// console.log('view', view);
-
 				setTimeout(function() {
 					var paralaxDiv = view.$el.find('.dd-background-effects[data-container-id="' + view.container.id + '"]');
 					view.$childViewContainer.prepend(paralaxDiv);
-				})
+				});
 			} 
 		}
 		#>

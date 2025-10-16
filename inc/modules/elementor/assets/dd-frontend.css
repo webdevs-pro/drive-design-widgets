@@ -1,0 +1,23 @@
+.dd-parallax-gallery-wrapper {
+   display: grid;
+   grid-template-rows: repeat( var( --dd-paralax-gallery-rows ), 1fr );
+   row-gap: var(--dd-paralax-gallery-row-gap);
+   min-width: 100%;
+   min-height: 100%;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+
+.dd-parallax-gallery-row {
+   display: grid;
+   grid-template-columns: repeat( var( --dd-paralax-gallery-columns ), 1fr );
+   column-gap: var(--dd-paralax-gallery-column-gap);
+}
+   
+.dd-parallax-gallery-item {
+   width: 100%;
+   min-height: 100%;
+   object-fit: cover;
+}
