@@ -49,19 +49,69 @@ class DD_Parallax_Background {
 			]
 		);
 
+		$element->start_controls_tabs( 'dd_paralax_tabs', [
+			'condition' => [
+				'dd_paralax_enable' => 'yes',
+			],
+		] );
+
+		// Content Tab
+		$element->start_controls_tab(
+			'dd_paralax_content_tab',
+			[
+				'label' => esc_html__( 'Content', 'elementor' ),
+			]
+		);
+
 		$element->add_control(
 			'dd_paralax_images',
 			[
 				'label' => esc_html__( 'Images', 'elementor' ),
 				'type' => \Elementor\Controls_Manager::GALLERY,
-				'condition' => [
-					'dd_paralax_enable' => 'yes',
-				],
 				// 'frontend_available' => true,
 				// 'of_type' => 'slideshow',
 				'show_label' => false,
 			]
 		);
+
+		$element->add_control(
+			'dd_paralax_rows',
+			[
+				'label' => esc_html__( 'Rows Count', 'elementor' ),
+				'type' => \Elementor\Controls_Manager::NUMBER,
+				'min' => 1,
+				'max' => 10,
+				'default' => 3,
+			]
+		);
+
+		$element->add_control(
+			'dd_paralax_columns',
+			[
+				'label' => esc_html__( 'Columns Count', 'elementor' ),
+				'type' => \Elementor\Controls_Manager::NUMBER,
+				'min' => 1,
+				'max' => 30,
+				'default' => 10,
+			]
+		);
+
+		$element->end_controls_tab();
+
+		// Style Tab
+		$element->start_controls_tab(
+			'dd_paralax_style_tab',
+			[
+				'label' => esc_html__( 'Style', 'elementor' ),
+			]
+		);
+
+		// Future style controls can be added here
+		// For example: opacity, blend modes, animation speed, etc.
+
+		$element->end_controls_tab();
+
+		$element->end_controls_tabs();
 
 		$element->end_controls_section();
 	}
