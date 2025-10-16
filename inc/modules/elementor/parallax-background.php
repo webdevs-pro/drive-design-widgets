@@ -30,41 +30,41 @@ class DD_Parallax_Background {
 	 */
 	public function add_dd_paralax_background_controls( $element, $args ) {
 		$element->start_controls_section(
-			'section_dd_paralax_background',
+			'section_dd_background_effects',
 			[
-				'label' => esc_html__( 'DD Paralax Background', 'elementor' ),
+				'label' => esc_html__( 'DD Background Effects', 'elementor' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$element->add_control(
-			'dd_paralax_enable',
+			'dd_background_effect',
 			[
 				'label' => esc_html__( 'Enable Paralax Effect', 'elementor' ),
-				'type' => \Elementor\Controls_Manager::SWITCHER,
-				'label_on' => esc_html__( 'Yes', 'elementor' ),
-				'label_off' => esc_html__( 'No', 'elementor' ),
-				'return_value' => 'yes',
-				'default' => '',
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'options' => [
+					'parallax_gallery' => esc_html__( 'Parallax Gallery', 'elementor' ),
+				],
+				'default' => 'parallax_gallery',
 			]
 		);
 
 		$element->start_controls_tabs( 'dd_paralax_tabs', [
 			'condition' => [
-				'dd_paralax_enable' => 'yes',
+				'dd_background_effect' => 'parallax_gallery',
 			],
 		] );
 
 		// Content Tab
 		$element->start_controls_tab(
-			'dd_paralax_content_tab',
+			'dd_paralax_gallery_tab',
 			[
 				'label' => esc_html__( 'Content', 'elementor' ),
 			]
 		);
 
 		$element->add_control(
-			'dd_paralax_images',
+			'dd_paralax_gallery_images',
 			[
 				'label' => esc_html__( 'Images', 'elementor' ),
 				'type' => \Elementor\Controls_Manager::GALLERY,
@@ -75,7 +75,7 @@ class DD_Parallax_Background {
 		);
 
 		$element->add_control(
-			'dd_paralax_rows',
+			'dd_paralax_gallery_rows',
 			[
 				'label' => esc_html__( 'Rows Count', 'elementor' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
@@ -86,7 +86,7 @@ class DD_Parallax_Background {
 		);
 
 		$element->add_control(
-			'dd_paralax_columns',
+			'dd_paralax_gallery_columns',
 			[
 				'label' => esc_html__( 'Columns Count', 'elementor' ),
 				'type' => \Elementor\Controls_Manager::NUMBER,
@@ -100,14 +100,62 @@ class DD_Parallax_Background {
 
 		// Style Tab
 		$element->start_controls_tab(
-			'dd_paralax_style_tab',
+			'dd_paralax_gallery_style_tab',
 			[
 				'label' => esc_html__( 'Style', 'elementor' ),
 			]
 		);
 
-		// Future style controls can be added here
-		// For example: opacity, blend modes, animation speed, etc.
+		$element->add_control(
+			'dd_paralax_gallery_row_gap',
+			[
+				'label' => esc_html__( 'Row Gap', 'elementor' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'custom' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+						'step' => 1,
+					],
+					'custom' => [
+						'min' => 0,
+						'max' => 100,
+						'step' => 1,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 10,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .dd-paralax-background' => '--dd-row-gap: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$element->add_control(
+			'dd_paralax_gallery_column_gap',
+			[
+				'label' => esc_html__( 'Column Gap', 'elementor' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'custom' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+						'step' => 1,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 10,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .dd-paralax-background' => '--dd-column-gap: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
 
 		$element->end_controls_tab();
 
@@ -124,7 +172,7 @@ class DD_Parallax_Background {
 	 */
 	public function before_container_render( $element ) {
 		$settings = $element->get_settings_for_display();
-		if ( 'yes' !== $settings['dd_paralax_enable'] ) {
+		if ( 'parallax_gallery' !== $settings['dd_background_effect'] ) {
 			return;
 		}
 
@@ -183,13 +231,13 @@ class DD_Parallax_Background {
 		
 		// console.log('settings', settings);
 
-		if ( 'yes' === settings.dd_paralax_enable ) {
+		if ( 'parallax_gallery' === settings.dd_background_effect ) {
 
 			#>
 			<div class="dd-paralax-background" data-container-id="{{ view.container.id }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
 			<#  
 
-			var paralaxImages = settings.dd_paralax_images;
+			var paralaxImages = settings.dd_paralax_gallery_images;
 			console.log('paralaxImages', paralaxImages);
 
 
