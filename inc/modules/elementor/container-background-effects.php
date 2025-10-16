@@ -13,11 +13,8 @@ class DD_Container_Background_Effects {
 	 * Constructor
 	 */
 	public function __construct() {
-		// Add DD Paralax Background controls to container
 		add_action( 'elementor/element/container/section_background_overlay/after_section_end', array( $this, 'add_controls' ), 10, 2 );
-
 		add_action( 'elementor/frontend/container/before_render', array( $this, 'before_container_render' ), 10, 1 );
-
 		add_action( "elementor/container/print_template", array( $this, 'render_container_template' ), 10, 2 );
 	}
 
@@ -30,27 +27,27 @@ class DD_Container_Background_Effects {
 	 */
 	public function add_controls( $element, $args ) {
 		$element->start_controls_section(
-			'section_DD_Container_Background_Effects',
+			'section_dd_container_background_effects',
 			[
 				'label' => esc_html__( 'DD Background Effects', 'drive-design-widgets' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$element->add_control(
-			'dd_background_effect',
-			[
-				'label' => esc_html__( 'Effect', 'drive-design-widgets' ),
-				'type' => \Elementor\Controls_Manager::SELECT,
-				'options' => [
-					'' => esc_html__( 'None', 'drive-design-widgets' ),
-					'parallax_gallery' => esc_html__( 'Parallax Gallery', 'drive-design-widgets' ),
-				],
-				'default' => '',
-			]
-		);
+			$element->add_control(
+				'dd_background_effect',
+				[
+					'label' => esc_html__( 'Effect', 'drive-design-widgets' ),
+					'type' => \Elementor\Controls_Manager::SELECT,
+					'options' => [
+						'' => esc_html__( 'None', 'drive-design-widgets' ),
+						'parallax_gallery' => esc_html__( 'Parallax Gallery', 'drive-design-widgets' ),
+					],
+					'default' => '',
+				]
+			);
 
-		$this->get_parallax_gallery_controls( $element );
+			$this->get_parallax_gallery_controls( $element );
 
 		$element->end_controls_section();
 	}
@@ -68,109 +65,109 @@ class DD_Container_Background_Effects {
 			],
 		] );
 
-		// Content Tab
-		$element->start_controls_tab(
-			'dd_paralax_gallery_tab',
-			[
-				'label' => esc_html__( 'Content', 'drive-design-widgets' ),
-			]
-		);
+			// Content Tab
+			$element->start_controls_tab(
+				'dd_paralax_gallery_tab',
+				[
+					'label' => esc_html__( 'Content', 'drive-design-widgets' ),
+				]
+			);
 
-		$element->add_control(
-			'dd_paralax_gallery_images',
-			[
-				'label' => esc_html__( 'Images', 'drive-design-widgets' ),
-				'type' => \Elementor\Controls_Manager::GALLERY,
-				// 'frontend_available' => true,
-				// 'of_type' => 'slideshow',
-				'show_label' => false,
-			]
-		);
+				$element->add_control(
+					'dd_paralax_gallery_images',
+					[
+						'label' => esc_html__( 'Images', 'drive-design-widgets' ),
+						'type' => \Elementor\Controls_Manager::GALLERY,
+						// 'frontend_available' => true,
+						// 'of_type' => 'slideshow',
+						'show_label' => false,
+					]
+				);
 
-		$element->add_control(
-			'dd_paralax_gallery_rows',
-			[
-				'label' => esc_html__( 'Rows Count', 'drive-design-widgets' ),
-				'type' => \Elementor\Controls_Manager::NUMBER,
-				'min' => 1,
-				'max' => 10,
-				'default' => 3,
-			]
-		);
+				$element->add_control(
+					'dd_paralax_gallery_rows',
+					[
+						'label' => esc_html__( 'Rows Count', 'drive-design-widgets' ),
+						'type' => \Elementor\Controls_Manager::NUMBER,
+						'min' => 1,
+						'max' => 10,
+						'default' => 3,
+					]
+				);
 
-		$element->add_control(
-			'dd_paralax_gallery_columns',
-			[
-				'label' => esc_html__( 'Columns Count', 'drive-design-widgets' ),
-				'type' => \Elementor\Controls_Manager::NUMBER,
-				'min' => 1,
-				'max' => 30,
-				'default' => 10,
-			]
-		);
+				$element->add_control(
+					'dd_paralax_gallery_columns',
+					[
+						'label' => esc_html__( 'Columns Count', 'drive-design-widgets' ),
+						'type' => \Elementor\Controls_Manager::NUMBER,
+						'min' => 1,
+						'max' => 30,
+						'default' => 10,
+					]
+				);
 
-		$element->end_controls_tab();
+			$element->end_controls_tab();
 
-		// Style Tab
-		$element->start_controls_tab(
-			'dd_paralax_gallery_style_tab',
-			[
-				'label' => esc_html__( 'Style', 'drive-design-widgets' ),
-			]
-		);
+			// Style Tab
+			$element->start_controls_tab(
+				'dd_paralax_gallery_style_tab',
+				[
+					'label' => esc_html__( 'Style', 'drive-design-widgets' ),
+				]
+			);
 
-		$element->add_control(
-			'dd_paralax_gallery_row_gap',
-			[
-				'label' => esc_html__( 'Row Gap', 'drive-design-widgets' ),
-				'type' => \Elementor\Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'custom' ],
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 100,
-						'step' => 1,
-					],
-					'custom' => [
-						'min' => 0,
-						'max' => 100,
-						'step' => 1,
-					],
-				],
-				'default' => [
-					'unit' => 'px',
-					'size' => 10,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .dd-paralax-background' => '--dd-row-gap: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
+				$element->add_control(
+					'dd_paralax_gallery_row_gap',
+					[
+						'label' => esc_html__( 'Row Gap', 'drive-design-widgets' ),
+						'type' => \Elementor\Controls_Manager::SLIDER,
+						'size_units' => [ 'px', 'custom' ],
+						'range' => [
+							'px' => [
+								'min' => 0,
+								'max' => 100,
+								'step' => 1,
+							],
+							'custom' => [
+								'min' => 0,
+								'max' => 100,
+								'step' => 1,
+							],
+						],
+						'default' => [
+							'unit' => 'px',
+							'size' => 10,
+						],
+						'selectors' => [
+							'{{WRAPPER}} .dd-paralax-background' => '--dd-row-gap: {{SIZE}}{{UNIT}};',
+						],
+					]
+				);
 
-		$element->add_control(
-			'dd_paralax_gallery_column_gap',
-			[
-				'label' => esc_html__( 'Column Gap', 'drive-design-widgets' ),
-				'type' => \Elementor\Controls_Manager::SLIDER,
-				'size_units' => [ 'px', 'custom' ],
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 100,
-						'step' => 1,
-					],
-				],
-				'default' => [
-					'unit' => 'px',
-					'size' => 10,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .dd-paralax-background' => '--dd-column-gap: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
+				$element->add_control(
+					'dd_paralax_gallery_column_gap',
+					[
+						'label' => esc_html__( 'Column Gap', 'drive-design-widgets' ),
+						'type' => \Elementor\Controls_Manager::SLIDER,
+						'size_units' => [ 'px', 'custom' ],
+						'range' => [
+							'px' => [
+								'min' => 0,
+								'max' => 100,
+								'step' => 1,
+							],
+						],
+						'default' => [
+							'unit' => 'px',
+							'size' => 10,
+						],
+						'selectors' => [
+							'{{WRAPPER}} .dd-paralax-background' => '--dd-column-gap: {{SIZE}}{{UNIT}};',
+						],
+					]
+				);
 
-		$element->end_controls_tab();
+			$element->end_controls_tab();
 
 		$element->end_controls_tabs();
 	}
