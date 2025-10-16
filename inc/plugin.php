@@ -4,8 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once ( DD_PLUGIN_DIR . '/inc/modules/elementor/elementor.php' );
 require_once ( DD_PLUGIN_DIR . '/inc/modules/elementor/parallax-background.php' );
+require_once ( DD_PLUGIN_DIR . '/inc/modules/elementor/elementor.php' );
 
 
 
