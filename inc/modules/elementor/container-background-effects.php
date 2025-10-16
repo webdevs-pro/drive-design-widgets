@@ -92,6 +92,9 @@ class DD_Container_Background_Effects {
 						'min' => 1,
 						'max' => 10,
 						'default' => 3,
+						'selectors' => [
+							'{{WRAPPER}} .dd-paralax-background' => '--dd-paralax-galleryrows: {{SIZE}};',
+						],
 					]
 				);
 
@@ -103,6 +106,9 @@ class DD_Container_Background_Effects {
 						'min' => 1,
 						'max' => 30,
 						'default' => 10,
+						'selectors' => [
+							'{{WRAPPER}} .dd-paralax-background' => '--dd-paralax-gallery-columns: {{SIZE}};',
+						],
 					]
 				);
 
@@ -139,7 +145,7 @@ class DD_Container_Background_Effects {
 							'size' => 10,
 						],
 						'selectors' => [
-							'{{WRAPPER}} .dd-paralax-background' => '--dd-row-gap: {{SIZE}}{{UNIT}};',
+							'{{WRAPPER}} .dd-paralax-background' => '--dd-paralax-gallery-row-gap: {{SIZE}}{{UNIT}};',
 						],
 					]
 				);
@@ -162,7 +168,7 @@ class DD_Container_Background_Effects {
 							'size' => 10,
 						],
 						'selectors' => [
-							'{{WRAPPER}} .dd-paralax-background' => '--dd-column-gap: {{SIZE}}{{UNIT}};',
+							'{{WRAPPER}} .dd-paralax-background' => '--dd-paralax-gallery-column-gap: {{SIZE}}{{UNIT}};',
 						],
 					]
 				);
